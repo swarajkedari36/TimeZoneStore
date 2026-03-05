@@ -2,8 +2,6 @@
 
 A full-featured e-commerce web application for premium watches built with Java JSP, Servlets, and MySQL.
 
-![TimeZone Store Banner](https://via.placeholder.com/1200x300/c9a959/000000?text=TimeZone+Watch+Store)
-
 ## 🚀 Features
 
 ### 👤 User Features
