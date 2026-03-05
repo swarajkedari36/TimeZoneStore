@@ -1,0 +1,42 @@
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+target/
+build/
+
+# IDE
+*.iml
+.idea/
+.classpath
+.project
+.settings/
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+email.properties
+*.properties
+!application.properties
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Temp files
+*.tmp
+*.temp

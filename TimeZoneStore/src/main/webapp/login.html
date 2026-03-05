@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - TimeZone Watches</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: url('images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Dark overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 450px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Brand Logo */
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .brand-icon {
+            font-size: 60px;
+            color: #c9a959;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .brand h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+        
+        .brand h2 span {
+            color: #c9a959;
+        }
+        
+        .brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* Form Title */
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-title h3 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .form-title .underline {
+            width: 60px;
+            height: 3px;
+            background: #c9a959;
+            margin: 0 auto;
+            border-radius: 3px;
+        }
+        
+        /* Error Message */
+        .error-message {
+            background: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            color: #ff6b6b;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .error-message i {
+            font-size: 20px;
+            color: #ff6b6b;
+        }
+        
+        .error-message span {
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .error-message .close-error {
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .error-message .close-error:hover {
+            color: #ff6b6b;
+        }
+        
+        /* Form Labels */
+        .form-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-label i {
+            color: #c9a959;
+            width: 20px;
+        }
+        
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 14px 20px;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #c9a959;
+            box-shadow: 0 0 0 3px rgba(201, 169, 89, 0.1);
+            outline: none;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+        
+        .form-control.error-input {
+            border-color: #ff6b6b;
+            background: rgba(220, 53, 69, 0.05);
+        }
+        
+        /* Password Field with Toggle */
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .toggle-password:hover {
+            color: #c9a959;
+        }
+        
+        /* Form Options */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #c9a959;
+            cursor: pointer;
+        }
+        
+        .forgot-password {
+            color: #c9a959;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .forgot-password:hover {
+            color: #d4b468;
+            text-decoration: underline;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #c9a959;
+            color: #000;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .login-btn:hover {
+            background: #d4b468;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(201, 169, 89, 0.3);
+        }
+        
+        .login-btn i {
+            font-size: 18px;
+        }
+        
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            margin: 25px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .divider span {
+            margin: 0 15px;
+        }
+        
+        /* Social Login */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+        
+        .social-btn:hover {
+            background: #c9a959;
+            color: #000;
+            transform: translateY(-3px);
+        }
+        
+        /* Register Link */
+        .register-link {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+        }
+        
+        .register-link a {
+            color: #c9a959;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .register-link a:hover {
+            color: #d4b468;
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 40px 20px;
+            }
+            
+            .brand-icon {
+                font-size: 50px;
+            }
+            
+            .brand h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="glass-card">
+            <!-- Brand -->
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h2>Time<span>Zone</span></h2>
+                <p>Luxury Watches & Timeless Elegance</p>
+            </div>
+            
+            <!-- Form Title -->
+            <div class="form-title">
+                <h3>Welcome Back</h3>
+                <div class="underline"></div>
+            </div>
+            
+            <!-- Dynamic Error Message (will be shown via JavaScript) -->
+            <div id="errorContainer"></div>
+            
+            <!-- Login Form -->
+            <form action="login" method="post" id="loginForm">
+               <!-- Email Field -->
+<div class="input-group">
+    <label class="form-label">
+        <i class="fas fa-envelope"></i> Email Address
+    </label>
+    <input type="email" name="email" class="form-control" 
+           placeholder="Enter your email" required 
+           id="email" value="rahul@gmail.com"
+           style="color: #ffffff; background: rgba(255,255,255,0.1);">
+</div>
+
+<!-- Password Field -->
+<div class="input-group">
+    <label class="form-label">
+        <i class="fas fa-lock"></i> Password
+    </label>
+    <div class="password-wrapper">
+        <input type="password" name="password" class="form-control" 
+               id="password" placeholder="Enter your password" required 
+               value="rahul"
+               style="color: #ffffff; background: rgba(255,255,255,0.1);">
+        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+    </div>
+</div>
+                
+                <!-- Remember Me & Forgot Password -->
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="forgot-password.jsp" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <!-- Login Button -->
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login to Account
+                </button>
+                
+                <!-- Divider -->
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+                
+                 <!-- Social Login -->
+              <!--   <div class="social-login">
+                    <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-apple"></i></a>
+                </div>  -->
+                
+                <!-- Register Link -->
+                <div class="register-link">
+                    New to TimeZone? <a href="register.html">Create an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Script -->
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        // Check URL for error parameter and show error on same page
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorType = urlParams.get('error');
+        const errorContainer = document.getElementById('errorContainer');
+        
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-circle"></i>
+                <span>${message}</span>
+                <i class="fas fa-times close-error" onclick="this.parentElement.remove()"></i>
+            `;
+            errorContainer.appendChild(errorDiv);
+            
+            // Highlight input fields
+            document.getElementById('email').classList.add('error-input');
+            document.getElementById('password').classList.add('error-input');
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentElement) {
+                    errorDiv.remove();
+                    document.getElementById('email').classList.remove('error-input');
+                    document.getElementById('password').classList.remove('error-input');
+                }
+            }, 5000);
+        }
+        
+        if (errorType === 'invalid') {
+            showError('Invalid email or password. Please try again.');
+        } else if (errorType === 'missing') {
+            showError('Please enter both email and password.');
+        } else if (errorType === 'true') {
+            showError('Login failed. Please try again.');
+        }
+        
+        // Form submission animation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const button = this.querySelector('.login-btn');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            button.disabled = true;
+        });
+    </script>
+</body>
+</html>
