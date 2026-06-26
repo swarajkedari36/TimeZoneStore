@@ -1,0 +1,62 @@
+# ============================================
+# BACKEND (minidrive folder)
+# ============================================
+
+# Compiled Java files
+minidrive/target/
+minidrive/*.class
+
+# IDE files (Eclipse)
+minidrive/.idea/
+minidrive/*.iml
+minidrive/.classpath
+minidrive/.project
+minidrive/.settings/
+minidrive/.springBeans
+
+# Uploaded files (contains your personal data!)
+minidrive/uploads/
+
+# Log files
+minidrive/*.log
+minidrive/logs/
+
+# ============================================
+# FRONTEND (minidrive-frontend folder)
+# ============================================
+
+# Node.js dependencies (HUGE folder!)
+minidrive-frontend/node_modules/
+
+# Build folder (can be regenerated)
+minidrive-frontend/build/
+minidrive-frontend/dist/
+
+# Environment files (contains passwords)
+minidrive-frontend/.env
+minidrive-frontend/.env.local
+minidrive-frontend/.env.development.local
+minidrive-frontend/.env.test.local
+minidrive-frontend/.env.production.local
+
+# ============================================
+# SYSTEM FILES
+# ============================================
+
+# Mac system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+desktop.ini
+
+# Log files anywhere
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
